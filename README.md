@@ -115,6 +115,9 @@ Every gap in the code is marked `HACK(<track>)`: search for it.
 | Problem | Fix |
 |---|---|
 | **Proxy / pip install fails** | Set `HTTPS_PROXY`, or `pip config set global.index-url <your mirror>`, then rerun setup. |
+| **`python3 -m venv` fails on Ubuntu/Debian** | Install the venv module: `sudo apt install python3-venv`, then rerun `./src/scripts/setup.sh` (it recreates a broken `.venv` automatically). |
+| **"Running scripts is disabled on this system" (Windows)** | Allow local scripts for your user: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, or run `powershell -ExecutionPolicy Bypass -File .\src\scripts\setup.ps1`. |
+| **Wrong Python version in `.venv`** | Install Python 3.11+ and rerun setup; it replaces a `.venv` that is older than 3.11. On macOS you can pick one explicitly: `PYTHON=python3.12 ./src/scripts/setup.sh`. |
 | **CDN blocked (no map or charts)** | Vendor the libraries: download `leaflet.js`, `leaflet.css` (+ its `images/` folder) from `https://unpkg.com/leaflet@1.9.4/dist/` and `chart.umd.js` from `https://unpkg.com/chart.js@4.6.1/dist/` into `src/frontend/vendor/`, then point the `<link>`/`<script>` tags in `index.html` at `vendor/...` (drop the `integrity` attributes or keep them, the hashes match). Map tiles still need tile.openstreetmap.org. |
 | **Copilot SDK runtime download fails** | Setup continues with a warning. Retry with `python -m copilot download-runtime`; behind a proxy set `HTTPS_PROXY`. The app works without it until the assistant step. |
 | **SDK check: not signed in / no licence** | Sign in to GitHub in VS Code or the Copilot CLI (or set `GH_TOKEN`) and confirm your Copilot licence. The check is optional. |

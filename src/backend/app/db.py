@@ -2,19 +2,25 @@
 
 The SQLite file lives at ``src/backend/data/cph.db`` (resolved from this file, not the
 current working directory). Override it with the ``CPH_DB_PATH`` environment variable,
-which the tests use to work on a throwaway database.
+which the tests use to work on a throwaway database. An optional ``.env`` file in the
+repository root is loaded first, so the app, the seed script and ``check_env.py`` all
+see the same settings (real environment variables win).
 """
 
 import os
 from collections.abc import Iterator
 from pathlib import Path
 
+from dotenv import load_dotenv
 from sqlalchemy import inspect
 from sqlmodel import Session, SQLModel, create_engine, select
 
 BACKEND_DIR = Path(__file__).resolve().parent.parent
+REPO_ROOT = BACKEND_DIR.parent.parent
+load_dotenv(REPO_ROOT / ".env")
+
 DEFAULT_DB_PATH = BACKEND_DIR / "data" / "cph.db"
-DB_PATH = Path(os.environ.get("CPH_DB_PATH", DEFAULT_DB_PATH))
+DB_PATH = Path(os.environ.get("CPH_DB_PATH") or DEFAULT_DB_PATH)
 
 engine = create_engine(
     f"sqlite:///{DB_PATH}",

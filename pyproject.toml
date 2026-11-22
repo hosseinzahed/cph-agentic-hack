@@ -10,6 +10,7 @@ dependencies = [
     "sqlmodel==0.0.50",
     "pydantic==2.14.3",
     "httpx==0.28.1",
+    "python-dotenv==1.2.4",  # loads the optional .env file (see .env.example)
     "tzdata==2026.6",  # IANA time zones (Europe/Copenhagen) on Windows
     # The Copilot SDK is in public preview and may break between releases: keep it pinned.
     # It is being renamed to "microsoft-copilot-sdk" (2.x, different API). This repo stays on

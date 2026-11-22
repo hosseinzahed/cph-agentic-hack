@@ -7,12 +7,18 @@ name: "Microsoft Copilot SDK Python Instructions"
      Copied verbatim from github/awesome-copilot (MIT licence). Only change: applyTo was
      "**.py, pyproject.toml, setup.py" and is now "src/backend/app/assistant/**" to match this repo's src/ layout. -->
 
-> **Repo note (CPH Agentic Hack):** this repo pins `github-copilot-sdk==1.0.34`. In that version
-> `CopilotClient.create_session(...)` and `session.send_and_wait(...)` take **keyword arguments**, e.g.
-> `await client.create_session(on_permission_request=handler, tools=[my_tool], system_message={...})` and
-> `await session.send_and_wait("question", timeout=60)`. Where the examples below use the older dict style,
-> follow the official SDK README instead: https://github.com/github/copilot-sdk/tree/main/python
-> (now https://github.com/microsoft/copilot-sdk). Never auto-approve shell or file-write tools for the chat assistant.
+> **Repo note (CPH Agentic Hack):** this repo pins `github-copilot-sdk==1.0.34`. Several examples
+> below use an older API. In 1.0.34:
+> - `CopilotClient(...)`, `client.create_session(...)`, `session.send(...)` and `session.send_and_wait(...)`
+>   take **keyword arguments / a plain string**, not dicts, e.g.
+>   `await client.create_session(on_permission_request=handler, tools=[my_tool], system_message={...})`,
+>   `await session.send("question")` and `await session.send_and_wait("question", timeout=60)`.
+> - `session.destroy()` does not exist: use `await session.disconnect()`.
+> - `client.get_state()` does not exist: use `await client.get_status()` or `await client.get_auth_status()`.
+>
+> When this file and the official SDK README disagree, follow the README:
+> https://github.com/github/copilot-sdk/tree/main/python (now https://github.com/microsoft/copilot-sdk).
+> Never auto-approve shell or file-write tools for the chat assistant.
 
 
 The Microsoft Copilot SDK is transitioning from the GitHub Copilot SDK in phases. No immediate changes are required; package names and examples below use the currently published identifiers. See the [official transition announcement](https://github.blog/changelog/2026-10-28-github-copilot-sdk-is-becoming-microsoft-copilot-sdk/).

@@ -89,6 +89,7 @@ async def ask(message: str, session_id: str | None = None) -> tuple[str, str]:
     # HACK(assistant): TODO 2 - create (or reuse) a session with the system message:
     #   session = await _client.create_session(
     #       on_permission_request=<a handler that only approves your own tools>,
+    #       model=os.environ.get("COPILOT_MODEL") or None,   # optional, see .env.example
     #       system_message={"mode": "append", "content": SYSTEM_MESSAGE},
     #       tools=build_tools(),
     #   )

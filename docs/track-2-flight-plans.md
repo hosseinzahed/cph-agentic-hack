@@ -17,7 +17,7 @@ cluster, and the board is what passengers and staff check every few minutes.
 
 ## 3. Data you have
 
-Table `flight` (300 rows: 150 departures, 150 arrivals, about 26 long-haul):
+Table `flight` (300 rows: 150 departures, 150 arrivals, about 30 long-haul):
 
 | Column | Type | Notes |
 |---|---|---|
