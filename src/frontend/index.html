@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CPH Agentic Hack with GitHub Copilot</title>
+
+  <!-- Pinned CDN versions. If the venue blocks CDNs, vendor them: see README "Troubleshooting". -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="styles.css">
+  <!-- TODO: if CPH supplies official logo/font files for the event, add them to assets/brand/ and reference them here. -->
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <p class="wordmark"><span class="wordmark__cph">CPH</span> Agentic Hack <span class="wordmark__sub">with GitHub Copilot</span></p>
+      <div class="site-header__actions">
+        <p id="health" class="health" role="status" aria-live="polite">
+          <span class="health__dot" aria-hidden="true"></span><span class="health__text">Checking API…</span>
+        </p>
+        <button id="chat-toggle" class="btn btn--primary" type="button" aria-controls="chat-drawer" aria-expanded="false">
+          CPH Ops Assistant
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="layout">
+    <h1 class="visually-hidden">CPH operations dashboard</h1>
+
+    <section class="kpis" aria-labelledby="kpi-heading">
+      <h2 id="kpi-heading" class="section-title">Live status</h2>
+      <ul class="kpi-grid">
+        <!-- HACK(onboarding): fill "Security wait T2" from GET /api/onboarding/forecast -->
+        <li class="kpi" data-kpi="security-wait-t2">
+          <span class="kpi__label">Security wait T2</span>
+          <span class="kpi__value">--</span><span class="kpi__unit">min</span>
+        </li>
+        <!-- HACK(onboarding): fill "Security wait T3" from GET /api/onboarding/forecast -->
+        <li class="kpi" data-kpi="security-wait-t3">
+          <span class="kpi__label">Security wait T3</span>
+          <span class="kpi__value">--</span><span class="kpi__unit">min</span>
+        </li>
+        <!-- HACK(flights): fill "Departures next hour" from GET /api/flights -->
+        <li class="kpi" data-kpi="departures-next-hour">
+          <span class="kpi__label">Departures next hour</span>
+          <span class="kpi__value">--</span><span class="kpi__unit">flights</span>
+        </li>
+        <!-- HACK(disruptions): fill "Active disruptions" from GET /api/disruptions/active -->
+        <li class="kpi" data-kpi="active-disruptions">
+          <span class="kpi__label">Active disruptions</span>
+          <span class="kpi__value">--</span><span class="kpi__unit">active</span>
+        </li>
+      </ul>
+
+      <!-- HACK(flights): enable the flight search (filter the board by flight number or destination) -->
+      <form class="flight-search" role="search" aria-label="Find departures and arrivals" onsubmit="return false">
+        <label for="flight-search-input" class="flight-search__label">Find departures and arrivals</label>
+        <div class="flight-search__row">
+          <input id="flight-search-input" class="input" type="search" placeholder="Flight number or destination, e.g. SK1415 or London" disabled>
+          <button class="btn btn--primary" type="submit" disabled>Search</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="map-section" aria-labelledby="map-heading">
+      <h2 id="map-heading" class="section-title">Route map</h2>
+      <div id="map" class="map" role="region" aria-label="Map of airports served from Copenhagen"></div>
+    </section>
+
+    <section class="tracks" aria-labelledby="tracks-heading">
+      <h2 id="tracks-heading" class="section-title">Tracks</h2>
+      <div class="tabs" role="tablist" aria-label="Hack tracks">
+        <button class="tab" role="tab" id="tab-onboarding" aria-controls="panel-onboarding" aria-selected="true" tabindex="0" data-track="onboarding">Passenger onboarding</button>
+        <button class="tab" role="tab" id="tab-flights" aria-controls="panel-flights" aria-selected="false" tabindex="-1" data-track="flights">Flight plans</button>
+        <button class="tab" role="tab" id="tab-disruptions" aria-controls="panel-disruptions" aria-selected="false" tabindex="-1" data-track="disruptions">Disruptions</button>
+        <button class="tab" role="tab" id="tab-gates" aria-controls="panel-gates" aria-selected="false" tabindex="-1" data-track="gates">Gates &amp; baggage</button>
+      </div>
+      <div class="tab-panel" role="tabpanel" id="panel-onboarding" aria-labelledby="tab-onboarding" tabindex="0"></div>
+      <div class="tab-panel" role="tabpanel" id="panel-flights" aria-labelledby="tab-flights" tabindex="0" hidden></div>
+      <div class="tab-panel" role="tabpanel" id="panel-disruptions" aria-labelledby="tab-disruptions" tabindex="0" hidden></div>
+      <div class="tab-panel" role="tabpanel" id="panel-gates" aria-labelledby="tab-gates" tabindex="0" hidden></div>
+    </section>
+  </main>
+
+  <aside id="chat-drawer" class="chat-drawer" aria-labelledby="chat-title" hidden>
+    <div class="chat-drawer__header">
+      <h2 id="chat-title" class="chat-drawer__title">CPH Ops Assistant</h2>
+      <button id="chat-close" class="btn btn--icon" type="button" aria-label="Close assistant">✕</button>
+    </div>
+    <div id="chat-log" class="chat-log" role="log" aria-live="polite">
+      <p id="chat-status" class="chat-status">Assistant not connected yet – HACK(assistant)</p>
+    </div>
+    <form id="chat-form" class="chat-form">
+      <label for="chat-input" class="visually-hidden">Message the CPH Ops Assistant</label>
+      <input id="chat-input" class="input" type="text" autocomplete="off" placeholder="Ask about flights, queues, disruptions…" disabled>
+      <button id="chat-send" class="btn btn--primary" type="submit" disabled>Send</button>
+    </form>
+  </aside>
+
+  <footer class="site-footer">
+    <p>Workshop prototype inspired by the Copenhagen Airport visual identity. Not an official CPH product.</p>
+    <p>All data is synthetic. Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>.</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/chart.js@4.6.1/dist/chart.umd.js"
+          integrity="sha384-lm7tNiW/3uF4tLujoEeoR94zIODe3hCWqRtW0UgxpQE3QslzOhlD22UqQk1tSBhB" crossorigin="anonymous"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

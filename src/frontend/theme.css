@@ -1,0 +1,70 @@
+/*
+ * theme.css: CPH-inspired design tokens. This is the ONLY file that defines colours and fonts.
+ * Every other file uses these variables: never hard-code hex values in components.
+ *
+ * Colour names follow the Copenhagen Airport design guide
+ * (https://www.cph.dk/en/about-cph/press/designguide). The HEX VALUES BELOW ARE APPROXIMATE
+ * PLACEHOLDERS, not the official values.
+ * TODO: replace them with the official values from the CPH design guide's colour overview.
+ *
+ * Workshop prototype inspired by the Copenhagen Airport visual identity. Not an official CPH product.
+ */
+
+:root {
+  /* ---- CPH palette (placeholder hex values) ---- */
+  --cph-midnight-blue: #0A1E3C;   /* primary brand, header and nav background */
+  --cph-sunrise-yellow: #F7B500;  /* primary accent, CTAs, active tab underline */
+  --cph-sunshine-yellow: #FFE066; /* soft highlight, badges */
+  --cph-horizon-blue: #1F5FA8;    /* links, focus rings, route lines */
+  --cph-sky-blue: #8EC5EB;        /* info panels, map water tint, light charts */
+  --cph-twilight-blue: #3D4F8A;   /* secondary chart series */
+  --cph-evening-blue: #1B2A5A;    /* dark surfaces, chat drawer header */
+  --cph-space-black: #0B0B0F;     /* body text */
+  --cph-clear-sky-white: #F5F8FB; /* page background */
+  --cph-misty-grey: #D9DEE4;      /* borders, dividers, disabled states */
+  --cph-storm-grey: #5B6573;      /* secondary text, captions */
+  --cph-white: #FFFFFF;           /* card surfaces, text on dark backgrounds */
+
+  /* ---- Functional status colours (not part of the CPH palette) ----
+     Always pair a status colour with a text label or icon, never colour alone. */
+  --status-ok: #1E7B34;
+  --status-warn: var(--cph-sunrise-yellow);
+  --status-critical: #C62828;
+  --status-info: var(--cph-horizon-blue);
+  --status-on-ok: var(--cph-white);
+  --status-on-warn: var(--cph-midnight-blue);
+  --status-on-critical: var(--cph-white);
+  --status-on-info: var(--cph-white);
+
+  /* ---- Map overlays ---- */
+  --map-route: var(--cph-horizon-blue);
+  --map-airport: var(--cph-horizon-blue);
+  --map-cph-fill: var(--cph-midnight-blue);
+  --map-cph-ring: var(--cph-sunrise-yellow);
+  --map-tile-filter: saturate(0.6) brightness(1.02); /* subtle, keeps labels readable */
+
+  /* ---- Typography ----
+     System font stack; swap in the official CPH typeface here if it is licensed for the event. */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-small: 0.875rem;
+  --font-size-h1: 1.5rem;
+  --font-size-h2: 1.25rem;
+  --font-size-kpi: 2rem;
+  --font-weight-bold: 700;
+  --line-height: 1.5;
+
+  /* ---- Shape and spacing ---- */
+  --radius-card: 12px;
+  --radius-control: 8px;
+  --radius-pill: 999px;
+  --shadow-card: 0 1px 3px rgb(10 30 60 / 0.08), 0 4px 12px rgb(10 30 60 / 0.06);
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --focus-ring: 3px solid var(--cph-horizon-blue);
+  --focus-ring-on-dark: 3px solid var(--cph-sunrise-yellow);
+  --drawer-width: 360px;
+}

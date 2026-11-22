@@ -1,0 +1,19 @@
+{
+  // Remote MCP servers used in the workshop (mainly by the @architect agent).
+  // Your GitHub organisation may need to allow MCP servers in its Copilot policies.
+  // The same servers are defined in /.mcp.json (the newer native Copilot format).
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "microsoft-learn": {
+      "type": "http",
+      "url": "https://learn.microsoft.com/api/mcp"
+    },
+    "drawio": {
+      "type": "http",
+      "url": "https://mcp.draw.io/mcp"
+    }
+  }
+}

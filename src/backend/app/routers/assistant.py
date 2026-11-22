@@ -1,0 +1,32 @@
+"""CPH Ops Assistant chat endpoint, backed by the Copilot SDK.
+
+Guide: docs/assistant-and-finale.md
+The chat drawer in the UI switches on automatically once this stops returning 501.
+"""
+
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel, Field
+
+router = APIRouter(prefix="/api/assistant", tags=["assistant"])
+
+
+class ChatIn(BaseModel):
+    # No min_length on purpose: the UI probes with an empty message. Once implemented,
+    # reject empty messages with a 400 (any non-501 answer switches the chat drawer on).
+    message: str = Field(max_length=4000)
+    session_id: str | None = None
+
+
+class ChatOut(BaseModel):
+    reply: str
+    session_id: str
+
+
+@router.post("/chat", response_model=ChatOut)
+async def chat(body: ChatIn) -> ChatOut:
+    """Send the user's message to the CPH Ops Assistant and return its reply."""
+    # HACK(assistant): call backend.app.assistant.copilot_agent.ask(...) and return the reply
+    raise HTTPException(
+        status_code=501,
+        detail="HACK(assistant): wire POST /api/assistant/chat to the Copilot SDK (assistant/copilot_agent.py)",
+    )
