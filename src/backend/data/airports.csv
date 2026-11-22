@@ -1,0 +1,45 @@
+# Source: OurAirports (https://ourairports.com/data/), public domain. Coordinates rounded to 4 decimals.
+iata,name,city,country,lat,lon
+CPH,Copenhagen Airport Kastrup,Copenhagen,Denmark,55.6179,12.6560
+AAL,Aalborg Airport,Aalborg,Denmark,57.0928,9.8492
+AAR,Aarhus Airport,Aarhus,Denmark,56.3000,10.6190
+BLL,Billund Airport,Billund,Denmark,55.7403,9.1518
+OSL,Oslo Airport Gardermoen,Oslo,Norway,60.1939,11.1004
+BGO,Bergen Airport Flesland,Bergen,Norway,60.2934,5.2181
+TRD,Trondheim Airport Vaernes,Trondheim,Norway,63.4578,10.9240
+ARN,Stockholm Arlanda Airport,Stockholm,Sweden,59.6519,17.9186
+GOT,Gothenburg Landvetter Airport,Gothenburg,Sweden,57.6628,12.2798
+HEL,Helsinki-Vantaa Airport,Helsinki,Finland,60.3172,24.9633
+KEF,Keflavik International Airport,Reykjavik,Iceland,63.9850,-22.6056
+LHR,London Heathrow Airport,London,United Kingdom,51.4706,-0.4619
+LGW,London Gatwick Airport,London,United Kingdom,51.1481,-0.1903
+DUB,Dublin Airport,Dublin,Ireland,53.4213,-6.2701
+CDG,Paris Charles de Gaulle Airport,Paris,France,49.0097,2.5479
+AMS,Amsterdam Airport Schiphol,Amsterdam,Netherlands,52.3086,4.7639
+BRU,Brussels Airport,Brussels,Belgium,50.9014,4.4844
+FRA,Frankfurt am Main Airport,Frankfurt,Germany,50.0333,8.5706
+MUC,Munich Airport,Munich,Germany,48.3538,11.7861
+BER,Berlin Brandenburg Airport,Berlin,Germany,52.3667,13.5033
+HAM,Hamburg Airport,Hamburg,Germany,53.6304,9.9882
+ZRH,Zurich Airport,Zurich,Switzerland,47.4647,8.5492
+VIE,Vienna International Airport,Vienna,Austria,48.1103,16.5697
+WAW,Warsaw Chopin Airport,Warsaw,Poland,52.1657,20.9671
+PRG,Vaclav Havel Airport Prague,Prague,Czechia,50.1008,14.2600
+RIX,Riga International Airport,Riga,Latvia,56.9236,23.9711
+MAD,Adolfo Suarez Madrid-Barajas Airport,Madrid,Spain,40.4719,-3.5626
+BCN,Barcelona-El Prat Airport,Barcelona,Spain,41.2971,2.0785
+AGP,Malaga-Costa del Sol Airport,Malaga,Spain,36.6749,-4.4991
+LIS,Lisbon Humberto Delgado Airport,Lisbon,Portugal,38.7813,-9.1359
+FCO,Rome Fiumicino Airport,Rome,Italy,41.8003,12.2389
+MXP,Milan Malpensa Airport,Milan,Italy,45.6306,8.7281
+ATH,Athens International Airport,Athens,Greece,37.9364,23.9445
+IST,Istanbul Airport,Istanbul,Turkey,41.2753,28.7519
+DXB,Dubai International Airport,Dubai,United Arab Emirates,25.2528,55.3644
+DOH,Hamad International Airport,Doha,Qatar,25.2731,51.6081
+EWR,Newark Liberty International Airport,New York,United States,40.6925,-74.1687
+JFK,John F. Kennedy International Airport,New York,United States,40.6398,-73.7789
+ORD,Chicago O'Hare International Airport,Chicago,United States,41.9786,-87.9048
+SFO,San Francisco International Airport,San Francisco,United States,37.6190,-122.3750
+BKK,Suvarnabhumi Airport,Bangkok,Thailand,13.6811,100.7475
+SIN,Singapore Changi Airport,Singapore,Singapore,1.3502,103.9944
+HND,Tokyo Haneda Airport,Tokyo,Japan,35.5523,139.7798

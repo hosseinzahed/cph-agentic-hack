@@ -1,0 +1,38 @@
+[project]
+name = "cph-agentic-hack"
+version = "0.1.0"
+description = "Starter boilerplate for CPH Agentic Hack with GitHub Copilot: build an intelligent Copenhagen Airport operations app with Python, SQLite, OpenStreetMap and the Copilot SDK."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi==0.163.1",
+    "uvicorn[standard]==0.54.0",
+    "sqlmodel==0.0.50",
+    "pydantic==2.14.3",
+    "httpx==0.28.1",
+    "python-dotenv==1.2.4",  # loads the optional .env file (see .env.example)
+    "tzdata==2026.6",  # IANA time zones (Europe/Copenhagen) on Windows
+    # The Copilot SDK is in public preview and may break between releases: keep it pinned.
+    # It is being renamed to "microsoft-copilot-sdk" (2.x, different API). This repo stays on
+    # the 1.x line used in the workshop docs. See docs/assistant-and-finale.md before upgrading.
+    "github-copilot-sdk==1.0.34",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==9.2.0",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["backend*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["src/backend/tests"]
+addopts = "-q"
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient`"]
