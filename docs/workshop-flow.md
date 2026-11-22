@@ -14,6 +14,11 @@
 
 Each track guide breaks these blocks into numbered steps with prompts, hints and checkpoints.
 
+> 🖥️ **GitHub Copilot app users:** every step works in the app. Pick custom agents in the agent
+> picker (or `/agent`). Replace prompt-file shortcuts (`/explain-this-repo`, `/new-endpoint`,
+> `/write-tests`) with "Follow `.github/prompts/<name>.prompt.md` for …". Start sessions with
+> **Workspace: Current checkout**. Details: [copilot-app.md](copilot-app.md).
+
 ---
 
 ## 0–10 · Setup check
@@ -34,8 +39,10 @@ uvicorn backend.app.main:app --app-dir src --reload
 
 Open http://localhost:8000 and http://localhost:8000/docs.
 
+🖥️ **App:** ask "Start the app in the background and open http://localhost:8000 in a browser canvas."
+
 💬 **Prompts**
-- `/explain-this-repo` (prompt file; pick your track when asked)
+- `/explain-this-repo` (prompt file; pick your track when asked). 🖥️ App: "Follow `.github/prompts/explain-this-repo.prompt.md`. My track is `<track>`."
 - "Which files do I touch for the `<track>` track? List every `HACK(<track>)` marker with a link."
 
 ✅ **You're on track if…** the map is centred on CPH with airport markers, the header says
@@ -61,7 +68,9 @@ committed one small instruction change.
 ## 25–40 · Plan with `@architect`
 
 Select **architect** in the agent picker (it uses the GitHub, Microsoft Learn and draw.io MCP
-servers from `.vscode/mcp.json`; start them when VS Code asks).
+servers from `.vscode/mcp.json`; start them when VS Code asks). 🖥️ App: pick **architect** in the
+agent picker or type `/agent`; the servers come from `.mcp.json` (check **Customize → MCP**). Use
+**Plan** mode. There's no handoff button: when the plan is done, switch back to the default agent.
 
 💬 **Prompts**
 - "Plan the `<track>` track for a team of `<n>`. Propose the API contract and task breakdown."
@@ -82,7 +91,7 @@ on GitHub and keep working locally while it opens a PR (🍴 in your fork · �
 access, and only your team's issue).
 
 💬 **Prompts**
-- `/new-endpoint GET /api/<...>` (see your track guide for the exact endpoint)
+- `/new-endpoint GET /api/<...>` (see your track guide for the exact endpoint). 🖥️ App: "Follow `.github/prompts/new-endpoint.prompt.md` for `GET /api/<...>`."
 - "@map-builder Draw `<layer>` from `GET /api/<...>` with a legend."
 
 ✅ **You're on track if…** your endpoints return data (no 501) and are tested, your tab shows a
@@ -102,7 +111,8 @@ client (`start_client`, `ask`, `POST /api/assistant/chat`); every track adds its
 ## 95–110 · Tests, review and PR
 
 💬 **Prompts**
-- `/write-tests` on your router.
+- `/write-tests` on your router. 🖥️ App: "Follow `.github/prompts/write-tests.prompt.md` for `src/backend/app/routers/<track>.py`."
+- 🖥️ App extras: `/security-review` on your changes, and `/rubber-duck` for a second opinion.
 - "@reviewer Review my changes for the `<track>` track."
 - "Fix the 🔴 and 🟠 findings from the review."
 
@@ -113,6 +123,7 @@ Reviewers menu. Address its comments.
 |---|---|---|
 | 🍴 Fork | `git push -u origin track/<track>` | `gh pr create --repo <you>/cph-agentic-hack --base main`. In the browser, change the **base repository** to your fork: GitHub defaults to the original. |
 | 📥 Clone (write access) | `git push -u origin <team>/<track>` | `gh pr create --base main --title "[<team>] <track>: ..."`. Don't merge unless the organisers ask. |
+| 🖥️ GitHub Copilot app | As for your path above (or ask the agent to push) | **Create PR** above the prompt box. 🍴 Check the base repository is your fork. |
 | 📥 Clone (local only) | Publish first: [getting-started.md → B2](getting-started.md#b2-clone-without-write-access-local-only) | Then as for 🍴 Fork. Or skip the PR and demo `@reviewer` only. |
 
 ✅ **You're on track if…** `pytest` is green, `@reviewer` says **Ready for PR**, and Copilot has

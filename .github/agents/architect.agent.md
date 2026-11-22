@@ -3,7 +3,8 @@ name: architect
 description: Plans one hack track. Reads the repo and the track guide in docs/, proposes the API contract and task breakdown, draws the flow with draw.io, and creates GitHub issues and a branch. Does not edit application code.
 argument-hint: "Which track? onboarding | flights | disruptions | gates"
 tools: ['read', 'search', 'edit', 'web', 'github/*', 'microsoft-learn/*', 'drawio/*']
-# Handoffs work in the VS Code (Local) agent harness; other harnesses ignore this field.
+# Handoffs work in the VS Code (Local) agent harness. The GitHub Copilot app and Copilot CLI
+# ignore this field: there, switch back to the default agent to implement.
 handoffs:
   - label: Implement the plan
     agent: agent
@@ -64,7 +65,9 @@ plan **one track** in about 15 minutes. You produce a plan, diagrams and GitHub 
      (track, guide link, goal, endpoints, UI, assistant tool, acceptance criteria) and a link
      to the diagram file. Label them `hack` and `track:<track>` if the labels exist.
    - One branch (name as above) from the default branch.
-7. **Hand off**: summarise and offer the "Implement the plan" handoff to the default agent.
+7. **Hand off**: summarise and offer the "Implement the plan" handoff to the default agent. In the
+   GitHub Copilot app (no handoff buttons), tell the user to switch back to the default agent and
+   say "Implement issue #<n>".
 
 ## Output format
 1. **Track summary** (2 lines)

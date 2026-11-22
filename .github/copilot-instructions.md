@@ -22,7 +22,7 @@ operations app for Copenhagen Airport (CPH). Teams build one track each in about
 | `src/backend/tests/` | pytest tests (health, airports, stubs). |
 | `src/frontend/tracks/*.js` | One render function per track tab. |
 | `src/frontend/theme.css` | The ONLY place colours and fonts are defined. |
-| `docs/` | Workshop guide. `getting-started.md` (fork or clone), then **one file per track** (`docs/track-*.md`). |
+| `docs/` | Workshop guide. `getting-started.md` (fork or clone), `copilot-app.md` (GitHub Copilot app instead of VS Code), then **one file per track** (`docs/track-*.md`). |
 | `docs/diagrams/` | draw.io diagrams created by `@architect`. |
 
 **Before working on a track, read its guide**: `docs/track-1-passenger-onboarding.md`,

@@ -30,8 +30,8 @@ Copilot sign-in is missing. Import it inside functions and catch start-up errors
 ## Before you start
 
 - Run `python src/scripts/check_env.py`: the last check starts a Copilot client and sends a
-  trivial prompt. If it fails, sign in to GitHub in VS Code (or the Copilot CLI) and check your
-  Copilot licence and proxy.
+  trivial prompt. If it fails, sign in to GitHub in VS Code, the GitHub Copilot app or the
+  Copilot CLI (or set `GH_TOKEN`), and check your Copilot licence and proxy.
 - Read the [`copilot-sdk-tool` skill](../.github/skills/copilot-sdk-tool/SKILL.md), the
   [`copilot-sdk-python` instructions](../.github/instructions/copilot-sdk-python.instructions.md)
   (note the repo note at the top) and the official SDK README:

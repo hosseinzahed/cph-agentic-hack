@@ -138,6 +138,10 @@ From the repository root:
 | `python src\scripts\check_env.py` | `python src/scripts/check_env.py` |
 
 Then run `uvicorn backend.app.main:app --app-dir src --reload` and open http://localhost:8000.
+
+🖥️ **GitHub Copilot app:** connect the folder with **+ → Open local folder** (after you fork and clone)
+or **+ → Add GitHub repository** (your fork, or the event repo). Run the setup in that folder, and
+start sessions with **Workspace: Current checkout**. See [copilot-app.md](copilot-app.md).
 If anything fails, see [Troubleshooting in the README](../README.md#troubleshooting).
 
 ## Where things go in each workshop step
@@ -148,6 +152,7 @@ If anything fails, see [Troubleshooting in the README](../README.md#troubleshoot
 | `@architect` creates the branch | `track/<track>` | `<team>/<track>` |
 | Assign an issue to the Copilot coding agent | Your repo | Event repo (your team's issue only) |
 | Open the pull request | Base: **`<you>/cph-agentic-hack` → `main`** | Base: `hosseinzahed/cph-agentic-hack` → `main` |
+| 🖥️ GitHub Copilot app: **Create PR** | Check that the base repository is your fork | Check the title has your `[<team>]` prefix |
 | Request a Copilot code review | On that pull request | On that pull request |
 
 > ⚠️ **Fork users:** on GitHub's **Compare & pull request** page, the default *base repository*

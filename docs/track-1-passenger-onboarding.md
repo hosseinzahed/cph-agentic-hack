@@ -109,6 +109,15 @@ Example prompts:
 
 ## Step-by-step walkthrough
 
+> 🖥️ **Using the GitHub Copilot app?** All steps work there too ([copilot-app.md](copilot-app.md)).
+> Start your session with **Workspace: Current checkout**. Pick agents (`architect`, `map-builder`,
+> `reviewer`) in the agent picker or with `/agent`. Replace the prompt-file shortcuts:
+> `/explain-this-repo` → "Follow `.github/prompts/explain-this-repo.prompt.md`",
+> `/new-endpoint X` → "Follow `.github/prompts/new-endpoint.prompt.md` for X", and
+> `/write-tests` → "Follow `.github/prompts/write-tests.prompt.md` for `<router>`".
+> To see the app, ask "Open http://localhost:8000 in a browser canvas". To open the pull
+> request, use **Create PR**.
+
 Times follow [workshop-flow.md](workshop-flow.md). Split the team: one person on the API, one on
 the UI, then pair on the assistant tool.
 

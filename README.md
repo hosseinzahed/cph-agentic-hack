@@ -19,8 +19,11 @@ flowchart LR
 
 ## Prerequisites
 
-- [VS Code](https://code.visualstudio.com/) with the GitHub Copilot Chat extension
-- A **GitHub Copilot licence** and a GitHub account **signed in** to VS Code
+- **One of these two tools** (team members can mix them):
+  - [VS Code](https://code.visualstudio.com/) with the GitHub Copilot Chat extension, **or**
+  - the [GitHub Copilot app](https://github.com/features/ai/github-app) (desktop). See
+    **[docs/copilot-app.md](docs/copilot-app.md)** for how the workshop steps map to the app.
+- A **GitHub Copilot licence** and a GitHub account **signed in** to VS Code or the app
 - **Python 3.11+** and **Git**
 - Internet access to PyPI, unpkg.com (Leaflet, Chart.js) and tile.openstreetmap.org
 
@@ -34,6 +37,9 @@ Pick **one path per team**. Full step-by-step instructions are in **[docs/gettin
 | Command | `gh repo fork hosseinzahed/cph-agentic-hack --clone` | `git clone https://github.com/hosseinzahed/cph-agentic-hack.git` |
 | Then | Enable Issues on your fork and run `gh repo set-default <you>/cph-agentic-hack` | Use branches named `<team>/<track>`; never push to `main` |
 | Issues, branches, PRs | In your fork (PR base = **your fork**) | In this repo, prefixed with your team name |
+
+Using the **GitHub Copilot app**? Connect the fork or clone with **+ → Open local folder** or
+**Add GitHub repository**, then run the setup below. See [docs/copilot-app.md](docs/copilot-app.md).
 
 ## Setup, run and test
 
@@ -78,11 +84,11 @@ All **code is in `src/`**; the **workshop guide is in `docs/`**.
 | `docs/` | Workshop guide: getting started (fork or clone), flow, one file per track, assistant step, ideas, UiPath hand-off, diagrams |
 | `.github/` | Copilot instructions, custom agents, skills, prompt files, issue template |
 | `.vscode/` | MCP servers, recommended extensions, Python/pytest settings |
-| `.mcp.json` | The same MCP servers in the newer native Copilot format |
+| `.mcp.json` | The same MCP servers in the native Copilot format (used by the GitHub Copilot app and Copilot CLI) |
 
 ## Start here
 
-Read **[docs/README.md](docs/README.md)**, then [docs/getting-started.md](docs/getting-started.md) (fork or clone), [docs/workshop-flow.md](docs/workshop-flow.md) and your track:
+Read **[docs/README.md](docs/README.md)**, then [docs/getting-started.md](docs/getting-started.md) (fork or clone), [docs/copilot-app.md](docs/copilot-app.md) if you use the GitHub Copilot app, [docs/workshop-flow.md](docs/workshop-flow.md) and your track:
 
 | Track | Guide | You build |
 |---|---|---|
@@ -109,17 +115,22 @@ Every gap in the code is marked `HACK(<track>)`: search for it.
 | Skill | [.github/skills/seed-data-generator/SKILL.md](.github/skills/seed-data-generator/SKILL.md) | Add deterministic synthetic data to `seed.py` |
 | Skill | [.github/skills/leaflet-map/SKILL.md](.github/skills/leaflet-map/SKILL.md) | Map recipes, with [snippets.js](.github/skills/leaflet-map/snippets.js) |
 | Skill | [.github/skills/copilot-sdk-tool/SKILL.md](.github/skills/copilot-sdk-tool/SKILL.md) | Expose a backend function as a Copilot SDK tool |
-| Prompt file | [.github/prompts/new-endpoint.prompt.md](.github/prompts/new-endpoint.prompt.md) | `/new-endpoint`: scaffold an endpoint, model and tests like `airports.py` |
-| Prompt file | [.github/prompts/write-tests.prompt.md](.github/prompts/write-tests.prompt.md) | `/write-tests`: pytest tests for the selected router |
-| Prompt file | [.github/prompts/explain-this-repo.prompt.md](.github/prompts/explain-this-repo.prompt.md) | `/explain-this-repo`: 5-minute tour for newcomers |
-| MCP server | `github` in [.vscode/mcp.json](.vscode/mcp.json) | Issues, branches and PRs from chat (`@architect`) |
-| MCP server | `microsoft-learn` in [.vscode/mcp.json](.vscode/mcp.json) | Look up Microsoft docs and best practice |
-| MCP server | `drawio` in [.vscode/mcp.json](.vscode/mcp.json) | Draw flows and sequence diagrams into `docs/diagrams/` |
+| Prompt file | [.github/prompts/new-endpoint.prompt.md](.github/prompts/new-endpoint.prompt.md) | `/new-endpoint` (VS Code): scaffold an endpoint, model and tests like `airports.py`. App: "Follow `.github/prompts/new-endpoint.prompt.md` for …" |
+| Prompt file | [.github/prompts/write-tests.prompt.md](.github/prompts/write-tests.prompt.md) | `/write-tests` (VS Code): pytest tests for the selected router. App: "Follow `.github/prompts/write-tests.prompt.md` for …" |
+| Prompt file | [.github/prompts/explain-this-repo.prompt.md](.github/prompts/explain-this-repo.prompt.md) | `/explain-this-repo` (VS Code): 5-minute tour for newcomers. App: "Follow `.github/prompts/explain-this-repo.prompt.md`" |
+| MCP server | `github` in [.vscode/mcp.json](.vscode/mcp.json) (VS Code) and [.mcp.json](.mcp.json) (app) | Issues, branches and PRs from chat (`@architect`) |
+| MCP server | `microsoft-learn` in [.vscode/mcp.json](.vscode/mcp.json) (VS Code) and [.mcp.json](.mcp.json) (app) | Look up Microsoft docs and best practice |
+| MCP server | `drawio` in [.vscode/mcp.json](.vscode/mcp.json) (VS Code) and [.mcp.json](.mcp.json) (app) | Draw flows and sequence diagrams into `docs/diagrams/` |
 | Issue template | [.github/ISSUE_TEMPLATE/hack-track.md](.github/ISSUE_TEMPLATE/hack-track.md) | One task per track issue |
+
+> **GitHub Copilot app:** instructions, custom agents, skills and MCP servers work in the app as
+> they are. Prompt files and the `@architect` handoff button are VS Code features; the app
+> equivalents are in [docs/copilot-app.md](docs/copilot-app.md#4-copilot-features-vs-code-vs-the-app).
 
 > **MCP policy:** your GitHub organisation may need to allow MCP servers (including the
 > third-party draw.io server) in its Copilot policies. VS Code asks you to start and trust each
-> server the first time; sign in to GitHub when the `github` server asks.
+> server the first time; sign in to GitHub when the `github` server asks. In the app, check
+> **Customize → MCP → Installed**.
 
 ## Troubleshooting
 
@@ -132,12 +143,14 @@ Every gap in the code is marked `HACK(<track>)`: search for it.
 | **CDN blocked (no map or charts)** | Vendor the libraries: download `leaflet.js`, `leaflet.css` (+ its `images/` folder) from `https://unpkg.com/leaflet@1.9.4/dist/` and `chart.umd.js` from `https://unpkg.com/chart.js@4.6.1/dist/` into `src/frontend/vendor/`, then point the `<link>`/`<script>` tags in `index.html` at `vendor/...` (drop the `integrity` attributes or keep them, the hashes match). Map tiles still need tile.openstreetmap.org. |
 | **Copilot SDK runtime download fails** | Setup continues with a warning. Retry with `python -m copilot download-runtime`; behind a proxy set `HTTPS_PROXY`. The app works without it until the assistant step. |
 | **`CERTIFICATE_VERIFY_FAILED` on macOS** | Python from python.org ships without root certificates: run `/Applications/Python 3.x/Install Certificates.command` (or use Homebrew Python), then rerun setup. |
-| **SDK check: not signed in / no licence** | Sign in to GitHub in VS Code or the Copilot CLI (or set `GH_TOKEN`) and confirm your Copilot licence. The check is optional. |
+| **SDK check: not signed in / no licence** | Sign in to GitHub in VS Code, the GitHub Copilot app or the Copilot CLI (or set `GH_TOKEN`) and confirm your Copilot licence. The check is optional. |
+| **GitHub Copilot app: "No module named uvicorn" or empty data in a session** | The session runs in a **new worktree** without the git-ignored `.venv` and `cph.db`: run the setup script there, or start sessions with **Current checkout**. See [docs/copilot-app.md](docs/copilot-app.md#2-start-a-session-pick-the-workspace). |
+| **GitHub Copilot app: `/new-endpoint` not found** | Prompt files are a VS Code feature. In the app, say "Follow `.github/prompts/new-endpoint.prompt.md` for …". |
 | **MCP servers don't start or show "blocked by policy"** | Ask an org admin to allow MCP servers (and the draw.io server) in Copilot policies; start them from the MCP view or `.vscode/mcp.json`. |
 | **Issues or PRs land in the wrong repo (fork users)** | Run `gh repo set-default <you>/cph-agentic-hack` and choose your fork as the PR base repository. See [docs/getting-started.md](docs/getting-started.md#troubleshooting). |
 | **`git push` fails with 403 after cloning** | You don't have write access: fork instead, or publish your clone as your own repo ([Path B2](docs/getting-started.md#b2-clone-without-write-access-local-only)). |
 | **Port 8000 in use** | Stop the other process, or run `uvicorn ... --port 8001` and open that port. |
-| **`.drawio` files open as XML** | Install the **Draw.io Integration** extension (`hediet.vscode-drawio`, recommended by the workspace). |
+| **`.drawio` files open as XML** | In VS Code, install the **Draw.io Integration** extension (`hediet.vscode-drawio`, recommended by the workspace). Otherwise open them at https://app.diagrams.net. |
 | **`ModuleNotFoundError: backend`** | Run commands from the repository root and keep `--app-dir src`. |
 | **Flight statuses look stale** | Statuses are set when the seed runs: `python src/backend/scripts/seed.py`. |
 
