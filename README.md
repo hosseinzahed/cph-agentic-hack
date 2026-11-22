@@ -24,9 +24,20 @@ flowchart LR
 - **Python 3.11+** and **Git**
 - Internet access to PyPI, unpkg.com (Leaflet, Chart.js) and tile.openstreetmap.org
 
+## Get the code: fork or clone
+
+Pick **one path per team**. Full step-by-step instructions are in **[docs/getting-started.md](docs/getting-started.md)**.
+
+| | Path A · Fork (recommended) | Path B · Clone |
+|---|---|---|
+| When | You want your own copy on GitHub (no write access to this repo needed) | The organisers gave your team write access, or you only work locally |
+| Command | `gh repo fork hosseinzahed/cph-agentic-hack --clone` | `git clone https://github.com/hosseinzahed/cph-agentic-hack.git` |
+| Then | Enable Issues on your fork and run `gh repo set-default <you>/cph-agentic-hack` | Use branches named `<team>/<track>`; never push to `main` |
+| Issues, branches, PRs | In your fork (PR base = **your fork**) | In this repo, prefixed with your team name |
+
 ## Setup, run and test
 
-Run everything **from the repository root**.
+Run everything **from the repository root** (`cd cph-agentic-hack`).
 
 | | Windows (PowerShell) | macOS / Linux (bash) |
 |---|---|---|
@@ -64,14 +75,14 @@ All **code is in `src/`**; the **workshop guide is in `docs/`**.
 | `src/backend/tests/` | pytest smoke tests (health, airports, 501 stubs) |
 | `src/frontend/` | `index.html`, `theme.css` (all colours), `styles.css`, `app.js` (map + helpers), `tracks/*.js` |
 | `src/scripts/` | `setup.ps1`, `setup.sh`, `check_env.py` |
-| `docs/` | Workshop guide: flow, one file per track, assistant step, ideas, UiPath hand-off, diagrams |
+| `docs/` | Workshop guide: getting started (fork or clone), flow, one file per track, assistant step, ideas, UiPath hand-off, diagrams |
 | `.github/` | Copilot instructions, custom agents, skills, prompt files, issue template |
 | `.vscode/` | MCP servers, recommended extensions, Python/pytest settings |
 | `.mcp.json` | The same MCP servers in the newer native Copilot format |
 
 ## Start here
 
-Read **[docs/README.md](docs/README.md)**, then [docs/workshop-flow.md](docs/workshop-flow.md) and your track:
+Read **[docs/README.md](docs/README.md)**, then [docs/getting-started.md](docs/getting-started.md) (fork or clone), [docs/workshop-flow.md](docs/workshop-flow.md) and your track:
 
 | Track | Guide | You build |
 |---|---|---|
@@ -123,6 +134,8 @@ Every gap in the code is marked `HACK(<track>)`: search for it.
 | **`CERTIFICATE_VERIFY_FAILED` on macOS** | Python from python.org ships without root certificates: run `/Applications/Python 3.x/Install Certificates.command` (or use Homebrew Python), then rerun setup. |
 | **SDK check: not signed in / no licence** | Sign in to GitHub in VS Code or the Copilot CLI (or set `GH_TOKEN`) and confirm your Copilot licence. The check is optional. |
 | **MCP servers don't start or show "blocked by policy"** | Ask an org admin to allow MCP servers (and the draw.io server) in Copilot policies; start them from the MCP view or `.vscode/mcp.json`. |
+| **Issues or PRs land in the wrong repo (fork users)** | Run `gh repo set-default <you>/cph-agentic-hack` and choose your fork as the PR base repository. See [docs/getting-started.md](docs/getting-started.md#troubleshooting). |
+| **`git push` fails with 403 after cloning** | You don't have write access: fork instead, or publish your clone as your own repo ([Path B2](docs/getting-started.md#b2-clone-without-write-access-local-only)). |
 | **Port 8000 in use** | Stop the other process, or run `uvicorn ... --port 8001` and open that port. |
 | **`.drawio` files open as XML** | Install the **Draw.io Integration** extension (`hediet.vscode-drawio`, recommended by the workspace). |
 | **`ModuleNotFoundError: backend`** | Run commands from the repository root and keep `--app-dir src`. |

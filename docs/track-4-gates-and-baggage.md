@@ -121,6 +121,10 @@ Times follow [workshop-flow.md](workshop-flow.md). Suggested split: one person o
 
 ### Step 0 · Get running (0–10 min)
 
+> **First, get the code:** 🍴 **fork** or 📥 **clone** the repo and run the setup script, as
+> described in [getting-started.md](getting-started.md). Your choice decides where your issues,
+> branch and pull request go in steps 2 and 9.
+
 1. `python src/scripts/check_env.py`, then `uvicorn backend.app.main:app --app-dir src --reload`.
 2. Open the **Gates & baggage** tab and http://localhost:8000/docs: `GET /api/gates/conflicts` → **501**.
 3. Note the `stand_conflicts` number printed by the seed script.
@@ -148,7 +152,12 @@ Times follow [workshop-flow.md](workshop-flow.md). Suggested split: one person o
 1. Select **architect**; start the MCP servers when asked.
 2. 💬 "Plan the gates track for a team of 3. Propose the API contract for /api/gates/allocations, /api/gates/conflicts and /api/baggage/at-risk with example JSON, and how to detect conflicts efficiently."
 3. 💬 "Draw the end-to-end flow for the gates track: UI Gantt and bag list → FastAPI gates router → stand_allocation, flight and transfer_bag tables → get_bags_at_risk Copilot SDK tool → automation_queue (REASSIGN_STAND). Save it to docs/diagrams/gates-flow.drawio."
-4. 💬 "Create the issues and the branch track/gates." Check out the branch.
+4. Create the issues and the branch. The prompt depends on your path ([getting-started.md](getting-started.md)):
+   - 🍴 Fork: 💬 "Create the issues and the branch track/gates in <you>/cph-agentic-hack."
+   - 📥 Clone with write access: 💬 "We are team <team>. Create the issues and the branch <team>/gates in hosseinzahed/cph-agentic-hack."
+   - 📥 Clone, local only: skip the issues and run `git switch -c track/gates`.
+
+   Then `git fetch` and check out the branch.
 
 💡 Conflict detection: group allocations by stand, sort by `start_time`, and compare each one
 with the following ones while they still start before it ends. Two intervals overlap when
@@ -218,6 +227,9 @@ the accessible alternative.
 💬 `/write-tests` on `gates.py` · "@reviewer Review the gates track changes." · "Fix the 🔴 and 🟠 findings."
 
 Push, open a PR, request a **Copilot code review**, address comments.
+The push and PR commands depend on your path: see the table in
+[workshop-flow.md](workshop-flow.md#95110--tests-review-and-pr). 🍴 **Fork users:** set the PR's
+**base repository** to your fork (GitHub defaults to the original repo).
 
 ✅ `pytest` green, reviewer **Ready for PR**.
 

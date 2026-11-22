@@ -4,7 +4,7 @@
 
 | Time | Step | Copilot capability |
 |---|---|---|
-| 0–10 | Setup check (`src/scripts/check_env.py`), app running, map visible | Copilot Chat, agent mode, `/explain-this-repo` |
+| 0–10 | Fork or clone ([getting-started.md](getting-started.md)), setup check (`src/scripts/check_env.py`), app running, map visible | Copilot Chat, agent mode, `/explain-this-repo` |
 | 10–25 | Review and tweak instructions; pull one more from awesome-copilot | Custom instructions |
 | 25–40 | Use `@architect` to plan your track, draw its flow and create issues and branches | Custom agents, GitHub MCP, Microsoft Learn MCP, draw.io MCP |
 | 40–75 | Build your track's endpoints and visualisation | Agent mode, skills, prompt files, (optional) assign an issue to the Copilot coding agent |
@@ -18,7 +18,14 @@ Each track guide breaks these blocks into numbered steps with prompts, hints and
 
 ## 0–10 · Setup check
 
-Run from the repository root:
+Get the code with **one** of the two paths in [getting-started.md](getting-started.md):
+
+- 🍴 **Fork** (recommended): `gh repo fork hosseinzahed/cph-agentic-hack --clone`, enable Issues on
+  your fork, then `gh repo set-default <you>/cph-agentic-hack`.
+- 📥 **Clone**: `git clone https://github.com/hosseinzahed/cph-agentic-hack.git` (with write access,
+  use `<team>/<track>` branches; without it, you work locally).
+
+Then run the setup script ([README](../README.md#setup-run-and-test)) and, from the repository root:
 
 ```bash
 python src/scripts/check_env.py
@@ -32,7 +39,8 @@ Open http://localhost:8000 and http://localhost:8000/docs.
 - "Which files do I touch for the `<track>` track? List every `HACK(<track>)` marker with a link."
 
 ✅ **You're on track if…** the map is centred on CPH with airport markers, the header says
-"API ok · data seeded", `pytest` is green and you know your track's files.
+"API ok · data seeded", `pytest` is green, you know your track's files, and `git remote -v`
+matches your path (🍴 `origin` = your fork, `upstream` = event repo · 📥 `origin` = event repo).
 
 ## 10–25 · Custom instructions
 
@@ -58,17 +66,20 @@ servers from `.vscode/mcp.json`; start them when VS Code asks).
 💬 **Prompts**
 - "Plan the `<track>` track for a team of `<n>`. Propose the API contract and task breakdown."
 - "Draw the end-to-end flow for the `<track>` track: UI → FastAPI → SQLite → Copilot SDK tool → automation_queue. Save it to docs/diagrams/."
-- "Looks good. Create the issues and the branch `track/<track>`."
+- 🍴 Fork: "Looks good. Create the issues and the branch `track/<track>` in `<you>/cph-agentic-hack`."
+- 📥 Clone (write access): "Looks good. We are team `<team>`. Create the issues and the branch `<team>/<track>` in `hosseinzahed/cph-agentic-hack`."
+- 📥 Clone (local only): skip the GitHub part; create the branch locally with `git switch -c track/<track>` and keep the task list in chat.
 
 ✅ **You're on track if…** there is a `docs/diagrams/<track>-flow.drawio` file, 3–6 issues in
-GitHub and a branch you've checked out.
+**your** repo (🍴 your fork · 📥 the event repo with your team prefix) and a branch you've checked out.
 
 ## 40–75 · Build
 
 Work issue by issue in **agent mode**. Use `/new-endpoint` and `/write-tests`, the
 `@map-builder` agent or `leaflet-map` skill for map layers, and the `seed-data-generator` skill
 if you need more data. Optional: assign one well-scoped issue to the **Copilot coding agent**
-on GitHub and keep working locally while it opens a PR.
+on GitHub and keep working locally while it opens a PR (🍴 in your fork · 📥 only with write
+access, and only your team's issue).
 
 💬 **Prompts**
 - `/new-endpoint GET /api/<...>` (see your track guide for the exact endpoint)
@@ -97,6 +108,12 @@ client (`start_client`, `ask`, `POST /api/assistant/chat`); every track adds its
 
 Then push, open a PR (link your issues), and **request a review from Copilot** in the PR's
 Reviewers menu. Address its comments.
+
+| Path | Push | Open the PR |
+|---|---|---|
+| 🍴 Fork | `git push -u origin track/<track>` | `gh pr create --repo <you>/cph-agentic-hack --base main`. In the browser, change the **base repository** to your fork: GitHub defaults to the original. |
+| 📥 Clone (write access) | `git push -u origin <team>/<track>` | `gh pr create --base main --title "[<team>] <track>: ..."`. Don't merge unless the organisers ask. |
+| 📥 Clone (local only) | Publish first: [getting-started.md → B2](getting-started.md#b2-clone-without-write-access-local-only) | Then as for 🍴 Fork. Or skip the PR and demo `@reviewer` only. |
 
 ✅ **You're on track if…** `pytest` is green, `@reviewer` says **Ready for PR**, and Copilot has
 reviewed your pull request.

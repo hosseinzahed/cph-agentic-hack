@@ -117,6 +117,10 @@ the map, one on the board and search.
 
 ### Step 0 · Get running (0–10 min)
 
+> **First, get the code:** 🍴 **fork** or 📥 **clone** the repo and run the setup script, as
+> described in [getting-started.md](getting-started.md). Your choice decides where your issues,
+> branch and pull request go in steps 2 and 9.
+
 🎯 App running, everyone knows the track's files.
 
 1. `python src/scripts/check_env.py`, then `uvicorn backend.app.main:app --app-dir src --reload`
@@ -147,7 +151,12 @@ the map, one on the board and search.
 1. Select **architect**; start the MCP servers when asked.
 2. 💬 "Plan the flights track for a team of 3. Propose the API contract for /api/flights and the GeoJSON shape of /api/flights/routes with example JSON, and a task breakdown."
 3. 💬 "Draw the end-to-end flow for the flights track: UI map, board and search → FastAPI flights router → flight and airport tables → get_flights Copilot SDK tool. Save it to docs/diagrams/flights-flow.drawio."
-4. 💬 "Create the issues and the branch track/flights." Check out the branch.
+4. Create the issues and the branch. The prompt depends on your path ([getting-started.md](getting-started.md)):
+   - 🍴 Fork: 💬 "Create the issues and the branch track/flights in <you>/cph-agentic-hack."
+   - 📥 Clone with write access: 💬 "We are team <team>. Create the issues and the branch <team>/flights in hosseinzahed/cph-agentic-hack."
+   - 📥 Clone, local only: skip the issues and run `git switch -c track/flights`.
+
+   Then `git fetch` and check out the branch.
 
 💡 Agree on the GeoJSON `properties` now (e.g. `dest_iata`, `city`, `flights`, `delayed`,
 `cancelled`, `status`): the map and the backend depend on the same names.
@@ -217,6 +226,9 @@ colour.
 💬 `/write-tests` on `flights.py` · "@reviewer Review the flights track changes." · "Fix the 🔴 and 🟠 findings."
 
 Push, open a PR that closes your issues, request a **Copilot code review**, address comments.
+The push and PR commands depend on your path: see the table in
+[workshop-flow.md](workshop-flow.md#95110--tests-review-and-pr). 🍴 **Fork users:** set the PR's
+**base repository** to your fork (GitHub defaults to the original repo).
 
 ✅ `pytest` green, reviewer **Ready for PR**.
 

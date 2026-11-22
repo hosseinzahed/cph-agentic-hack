@@ -114,6 +114,10 @@ the UI, then pair on the assistant tool.
 
 ### Step 0 · Get running (0–10 min)
 
+> **First, get the code:** 🍴 **fork** or 📥 **clone** the repo and run the setup script, as
+> described in [getting-started.md](getting-started.md). Your choice decides where your issues,
+> branch and pull request go in steps 2 and 9.
+
 🎯 App running, everyone knows the track's files.
 
 1. From the repository root: `python src/scripts/check_env.py`, then
@@ -151,7 +155,12 @@ the UI, then pair on the assistant tool.
 2. 💬 "Plan the onboarding track for a team of 3. Propose the API contract for /api/onboarding/queues and /api/onboarding/forecast with example JSON, and a task breakdown."
 3. 💬 "Draw the end-to-end flow for the onboarding track: UI heatmap and KPI tiles → FastAPI onboarding router → passenger_flow table → get_queue_forecast Copilot SDK tool. Save it to docs/diagrams/onboarding-flow.drawio."
 4. Review the plan. Decide your forecast method now (see the hint).
-5. 💬 "Create the issues and the branch track/onboarding." Then `git fetch` and check out the branch.
+5. Create the issues and the branch. The prompt depends on your path ([getting-started.md](getting-started.md)):
+   - 🍴 Fork: 💬 "Create the issues and the branch track/onboarding in <you>/cph-agentic-hack."
+   - 📥 Clone with write access: 💬 "We are team <team>. Create the issues and the branch <team>/onboarding in hosseinzahed/cph-agentic-hack."
+   - 📥 Clone, local only: skip the issues and run `git switch -c track/onboarding`.
+
+   Then `git fetch` and check out the branch.
 
 💡 **Forecast options (pick the simplest that demos well):**
 - *A. Read-ahead*: the seed already contains the whole day, so slots after "now" are your
@@ -242,6 +251,9 @@ Use `.chip--ok/warn/critical` or `cssVar("--status-…")`, never hex values.
 💬 "Fix the 🔴 and 🟠 findings."
 
 Push the branch, open a PR that closes your issues, and request a **Copilot code review**.
+The push and PR commands depend on your path: see the table in
+[workshop-flow.md](workshop-flow.md#95110--tests-review-and-pr). 🍴 **Fork users:** set the PR's
+**base repository** to your fork (GitHub defaults to the original repo).
 
 ✅ `pytest` green locally, reviewer verdict **Ready for PR**, Copilot review addressed.
 

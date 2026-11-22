@@ -9,9 +9,10 @@ synthetic.
 
 ## Reading order
 
-1. [workshop-flow.md](workshop-flow.md): the 120-minute agenda and which Copilot feature you use in each step.
-2. **Your track file** (table below): the detailed step-by-step guide for your team.
-3. [assistant-and-finale.md](assistant-and-finale.md): the Copilot SDK step every track shares, and the cross-track finale.
+1. [getting-started.md](getting-started.md): **fork or clone** the repo, then set it up. Your choice decides where your issues, branches and PRs go.
+2. [workshop-flow.md](workshop-flow.md): the 120-minute agenda and which Copilot feature you use in each step.
+3. **Your track file** (table below): the detailed step-by-step guide for your team.
+4. [assistant-and-finale.md](assistant-and-finale.md): the Copilot SDK step every track shares, and the cross-track finale.
 
 ## Tracks
 
@@ -34,6 +35,7 @@ Every track ends with the same shared step: [assistant-and-finale.md](assistant-
 ## Conventions used in the guides
 
 - 💬 **Prompt**: paste into Copilot Chat (agent mode unless the step says otherwise).
+- 🍴 **Fork** / 📥 **Clone**: a step that differs per path from [getting-started.md](getting-started.md).
 - 💡 **Hint**: a concept or approach, not the solution.
 - ✅ **Checkpoint**: you're on track if this is true.
 - `HACK(<track>)`: a marker in the code where your track has work to do. Search for it with

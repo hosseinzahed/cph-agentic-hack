@@ -22,7 +22,7 @@ operations app for Copenhagen Airport (CPH). Teams build one track each in about
 | `src/backend/tests/` | pytest tests (health, airports, stubs). |
 | `src/frontend/tracks/*.js` | One render function per track tab. |
 | `src/frontend/theme.css` | The ONLY place colours and fonts are defined. |
-| `docs/` | Workshop guide. **One file per track** (`docs/track-*.md`). |
+| `docs/` | Workshop guide. `getting-started.md` (fork or clone), then **one file per track** (`docs/track-*.md`). |
 | `docs/diagrams/` | draw.io diagrams created by `@architect`. |
 
 **Before working on a track, read its guide**: `docs/track-1-passenger-onboarding.md`,
@@ -57,6 +57,9 @@ operations app for Copenhagen Airport (CPH). Teams build one track each in about
 - Every status colour also carries a text label or icon, never colour alone.
 - Insert untrusted text with `textContent` (or `escapeHtml()` from `app.js`), never raw `innerHTML`.
 - **Keep `HACK(<track>)` markers** until that feature is complete, then remove them.
+- Teams either **fork** or **clone** this repo (`docs/getting-started.md`). Create issues, branches
+  and PRs in the repo `origin` points to. In a fork, never target `upstream`
+  (`hosseinzahed/cph-agentic-hack`). On the shared repo, prefix branches with the team name.
 - Copilot SDK tools are read-only. Never auto-approve shell or file-write tools for the chat assistant.
 - No secrets in code. Use `.env` (git-ignored); `.env.example` documents the variables.
 
