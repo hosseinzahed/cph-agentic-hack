@@ -43,5 +43,6 @@ Every track ends with the same shared step: [assistant-and-finale.md](assistant-
   prompt files. In the app, say "Follow `.github/prompts/<name>.prompt.md` for …" instead.
 - 💡 **Hint**: a concept or approach, not the solution.
 - ✅ **Checkpoint**: you're on track if this is true.
-- `HACK(<track>)`: a marker in the code where your track has work to do. Search for it with
-  <kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd>.
+- `HACK(<track>)`: a marker in the code where your track has work to do. To find them, search
+  the code for `HACK(<track>)`: **Ctrl+Shift+F** (Windows/Linux) or **Cmd+Shift+F** (macOS) in
+  VS Code. In the GitHub Copilot app, ask "List every HACK(<track>) marker".
