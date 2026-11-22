@@ -2,7 +2,7 @@
 
 ← [Docs index](README.md) · [Workshop flow](workshop-flow.md) · Next: [Assistant & finale](assistant-and-finale.md)
 
-> Jump to the **[step-by-step walkthrough](#step-by-step-walkthrough)** once you've skimmed sections 1–10.
+> Jump to the [**step-by-step walkthrough**](#step-by-step-walkthrough) once you've skimmed sections 1–10.
 
 ## 1. Goal
 
@@ -129,7 +129,8 @@ the UI, then pair on the assistant tool.
 
 🎯 App running, everyone knows the track's files.
 
-1. From the repository root: `python src/scripts/check_env.py`, then
+1. From the repository root, with the venv activated ([getting-started](getting-started.md#both-paths-set-up-and-run)):
+   `python src/scripts/check_env.py`, then
    `uvicorn backend.app.main:app --app-dir src --reload` and open http://localhost:8000.
 2. Open the **Passenger onboarding** tab: you should see the 🚧 placeholder.
 3. Open http://localhost:8000/docs and try `GET /api/onboarding/queues`: it returns **501** with

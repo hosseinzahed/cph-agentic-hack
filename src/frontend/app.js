@@ -25,9 +25,23 @@ export function cssVar(name) {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
+/** Turn a FastAPI error `detail` (a string or a list of validation errors) into readable text. */
+function errorMessage(detail) {
+  if (typeof detail === "string") return detail;
+  if (!Array.isArray(detail)) return "";
+  return detail
+    .map((item) => {
+      const [first, ...rest] = item.loc ?? [];
+      const loc = ["query", "body", "path", "header", "cookie"].includes(first) ? rest : item.loc ?? [];
+      return loc.length ? `${loc.join(".")}: ${item.msg}` : item.msg;
+    })
+    .join("; ");
+}
+
 /**
  * Fetch JSON from the backend. Throws an Error with `.status` and `.detail` on HTTP errors,
- * so a 501 stub can be shown as a placeholder.
+ * so a 501 stub can be shown as a placeholder. `.detail` is FastAPI's original value (a string,
+ * or a list of validation errors); `.message` is always readable text.
  */
 export async function api(path, options = {}) {
   const init = { ...options, headers: { Accept: "application/json", ...(options.headers || {}) } };
@@ -38,7 +52,7 @@ export async function api(path, options = {}) {
   const response = await fetch(path, init);
   const data = response.headers.get("content-type")?.includes("json") ? await response.json() : null;
   if (!response.ok) {
-    const error = new Error(data?.detail || `${response.status} ${response.statusText}`);
+    const error = new Error(errorMessage(data?.detail) || `${response.status} ${response.statusText}`);
     error.status = response.status;
     error.detail = data?.detail;
     throw error;
@@ -93,6 +107,45 @@ export function chartPalette() {
   return ["--cph-horizon-blue", "--cph-twilight-blue", "--cph-sky-blue", "--cph-sunrise-yellow", "--cph-evening-blue"].map(cssVar);
 }
 
+/**
+ * A keyboard-accessible map dot (styled by `.map-dot` in styles.css). Tab reaches it, Enter or
+ * Space opens its popup, and Escape or the close button returns focus to the dot.
+ * `label` is the accessible name; `popupHtml` must already be escaped with escapeHtml().
+ * Options: `className` (e.g. "map-dot--cph") and `colour` (e.g. cssVar("--status-warn")).
+ */
+export function dotMarker([lat, lon], label, popupHtml, { className = "", colour } = {}) {
+  const marker = L.marker([lat, lon], {
+    title: label,
+    icon: L.divIcon({ className: `map-dot ${className}`.trim(), iconSize: [24, 24] }),
+  }).bindPopup(popupHtml);
+
+  marker.on("add", () => {
+    const dot = marker.getElement();
+    dot.setAttribute("aria-label", label);
+    if (colour) dot.style.setProperty("--dot-colour", colour);
+    // Leaflet opens the popup on Enter; add Space, like a native button.
+    dot.onkeydown = (event) => {
+      if (event.key !== " ") return;
+      event.preventDefault();
+      marker.togglePopup();
+    };
+  });
+  marker.on("popupopen", ({ popup }) => {
+    const content = popup.getElement().querySelector(".leaflet-popup-content");
+    content.tabIndex = -1;
+    content.focus();
+    popup.getElement().onkeydown = (event) => {
+      if (event.key === "Escape") marker.closePopup();
+    };
+  });
+  marker.on("popupclose", ({ popup }) => {
+    // Only move focus back if it was inside the popup (not when the user clicked elsewhere).
+    const active = document.activeElement;
+    if (active === document.body || popup.getElement()?.contains(active)) marker.getElement()?.focus();
+  });
+  return marker;
+}
+
 // ---------------------------------------------------------------- map
 
 function initMap() {
@@ -112,25 +165,19 @@ async function addAirportMarkers() {
   const markers = airports
     .filter((a) => a.iata !== "CPH")
     .map((a) =>
-      L.circleMarker([a.lat, a.lon], {
-        radius: 5,
-        color: cssVar("--cph-white"),
-        weight: 1,
-        fillColor: cssVar("--map-airport"),
-        fillOpacity: 0.9,
-      }).bindPopup(`<strong>${escapeHtml(a.iata)}</strong><br>${escapeHtml(a.name)}<br>${escapeHtml(a.city)}, ${escapeHtml(a.country)}`),
+      dotMarker(
+        [a.lat, a.lon],
+        `${a.iata}, ${a.name}`,
+        `<strong>${escapeHtml(a.iata)}</strong><br>${escapeHtml(a.name)}<br>${escapeHtml(a.city)}, ${escapeHtml(a.country)}`,
+      ),
     );
   addLayer("airports", L.layerGroup(markers));
 
   addLayer(
     "cph",
-    L.circleMarker([CPH.lat, CPH.lon], {
-      radius: 9,
-      color: cssVar("--map-cph-ring"),
-      weight: 4,
-      fillColor: cssVar("--map-cph-fill"),
-      fillOpacity: 1,
-    }).bindPopup("<strong>CPH</strong><br>Copenhagen Airport Kastrup"),
+    dotMarker([CPH.lat, CPH.lon], "CPH, Copenhagen Airport Kastrup", "<strong>CPH</strong><br>Copenhagen Airport Kastrup", {
+      className: "map-dot--cph",
+    }).setZIndexOffset(1000),
   );
 }
 
@@ -205,4 +252,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Handy for debugging in the browser console: window.cph.api("/api/airports")
-window.cph = { api, addLayer, clearLayer, renderPlaceholder, getMap, cssVar, chartPalette, escapeHtml };
+window.cph = { api, addLayer, clearLayer, renderPlaceholder, getMap, cssVar, chartPalette, escapeHtml, dotMarker };

@@ -2,7 +2,7 @@
 // Copy the functions you need into src/frontend/tracks/<track>.js. They use only theme.css
 // variables (via cssVar) and the helpers exported by src/frontend/app.js.
 
-import { addLayer, cssVar, escapeHtml } from "../app.js";
+import { addLayer, cssVar, dotMarker, escapeHtml } from "../app.js";
 
 // ---------------------------------------------------------------- colour scales
 
@@ -70,6 +70,9 @@ export function routeCrossesCircle(points, { lat, lon, radius_km }) {
 
 // ---------------------------------------------------------------- layers
 
+// Lines and circles (SVG paths) can't get keyboard focus, so their tooltips/popups are mouse-only.
+// Put details people need in a focusable dotMarker() or in a list/table in your track panel.
+
 /** Draw a GeoJSON FeatureCollection of LineStrings, coloured by properties.status. */
 export function drawRoutes(featureCollection, layerName = "flights:routes") {
   const layer = L.geoJSON(featureCollection, {
@@ -92,26 +95,34 @@ export function drawGreatCircleRoutes(destinations, cph = [55.618, 12.656], laye
   return addLayer(layerName, L.layerGroup(lines));
 }
 
-/** Draw circle markers with escaped popups. items: [{ lat, lon, title, text, status }] */
+/** Draw keyboard-accessible dots with escaped popups. items: [{ lat, lon, title, text, status }] */
 export function drawMarkers(items, layerName) {
   const markers = items.map((item) =>
-    L.circleMarker([item.lat, item.lon], {
-      radius: 6, weight: 1, color: cssVar("--cph-white"),
-      fillColor: item.status ? statusColour(item.status) : cssVar("--map-airport"), fillOpacity: 0.9,
-    }).bindPopup(`<strong>${escapeHtml(item.title)}</strong><br>${escapeHtml(item.text ?? "")}`),
+    dotMarker([item.lat, item.lon], item.title, `<strong>${escapeHtml(item.title)}</strong><br>${escapeHtml(item.text ?? "")}`, {
+      colour: item.status ? statusColour(item.status) : undefined,
+    }),
   );
   return addLayer(layerName, L.layerGroup(markers));
 }
 
-/** Draw disruption circles: [{ lat, lon, radius_km, severity, title, type }] */
+/**
+ * Draw disruption circles: [{ lat, lon, radius_km, severity, title, type }]
+ * The circle is only visual; a focusable dot at its centre carries the popup.
+ */
 export function drawDisruptions(disruptions, layerName = "disruptions:circles") {
-  const circles = disruptions.map((d) =>
+  const layers = disruptions.flatMap((d) => [
     L.circle([d.lat, d.lon], {
       radius: d.radius_km * 1000, color: severityColour(d.severity), weight: 2,
-      fillColor: severityColour(d.severity), fillOpacity: 0.2,
-    }).bindPopup(`<strong>${escapeHtml(d.title)}</strong><br>${escapeHtml(d.type)} · severity ${escapeHtml(d.severity)}/5`),
-  );
-  return addLayer(layerName, L.layerGroup(circles));
+      fillColor: severityColour(d.severity), fillOpacity: 0.2, interactive: false,
+    }),
+    dotMarker(
+      [d.lat, d.lon],
+      `Disruption: ${d.title}, severity ${d.severity} of 5`,
+      `<strong>${escapeHtml(d.title)}</strong><br>${escapeHtml(d.type)} · severity ${escapeHtml(d.severity)}/5`,
+      { colour: severityColour(d.severity) },
+    ),
+  ]);
+  return addLayer(layerName, L.layerGroup(layers));
 }
 
 /** Add a legend control. entries: [{ colour: cssVar(...), label: "Delayed" }] */

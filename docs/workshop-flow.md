@@ -30,7 +30,7 @@ Get the code with **one** of the two paths in [getting-started.md](getting-start
 - 📥 **Clone**: `git clone https://github.com/hosseinzahed/cph-agentic-hack.git` (with write access,
   use `<team>/<track>` branches; without it, you work locally).
 
-Then run the setup script ([README](../README.md#setup-run-and-test)) and, from the repository root:
+Then run the setup script and activate the venv ([README](../README.md#setup-run-and-test)) and, from the repository root:
 
 ```bash
 python src/scripts/check_env.py

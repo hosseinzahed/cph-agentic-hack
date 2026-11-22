@@ -189,14 +189,16 @@ a { color: var(--cph-horizon-blue); }
 
 /* ---------------------------------------------------------------- chat drawer */
 
+/* A native <dialog> opened with showModal(): the browser traps focus and handles Escape. */
 .chat-drawer {
-  position: fixed; top: 0; right: 0; bottom: 0; z-index: 1500;
-  width: min(var(--drawer-width), 100vw);
-  display: flex; flex-direction: column;
-  background: var(--cph-clear-sky-white); box-shadow: var(--shadow-card);
+  position: fixed; inset: 0 0 0 auto; margin: 0; padding: 0; border: 0;
+  width: min(var(--drawer-width), 100vw); max-width: 100vw;
+  height: 100%; max-height: 100%;
+  color: inherit; background: var(--cph-clear-sky-white); box-shadow: var(--shadow-card);
   border-left: 1px solid var(--cph-misty-grey);
 }
-.chat-drawer[hidden] { display: none; }
+.chat-drawer[open] { display: flex; flex-direction: column; }
+.chat-drawer::backdrop { background: transparent; }
 .chat-drawer__header {
   display: flex; align-items: center; justify-content: space-between;
   background: var(--cph-evening-blue); color: var(--cph-white);
@@ -210,7 +212,7 @@ a { color: var(--cph-horizon-blue); }
 .msg--user { align-self: flex-end; background: var(--cph-sky-blue); color: var(--cph-space-black); }
 .msg--assistant { align-self: flex-start; background: var(--cph-white); border: 1px solid var(--cph-misty-grey); }
 .chat-form { display: flex; gap: var(--space-2); padding: var(--space-3); border-top: 1px solid var(--cph-misty-grey); }
-.chat-form .input { flex: 1; }
+.chat-form .input { flex: 1; min-width: 0; }
 
 /* ---------------------------------------------------------------- footer */
 
@@ -231,3 +233,15 @@ a { color: var(--cph-horizon-blue); }
   .flight-search__row { flex-direction: column; }
   .map { height: 360px; }
 }
+
+/* ---------------------------------------------------------------- map dots (dotMarker() in app.js) */
+
+/* A 24px keyboard target with a smaller visible dot drawn by ::after. */
+.map-dot { display: grid; place-items: center; border-radius: 50%; cursor: pointer; }
+.map-dot::after {
+  content: ""; box-sizing: border-box; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--dot-colour, var(--map-airport)); border: 1px solid var(--cph-white);
+}
+.map-dot--cph::after { width: 22px; height: 22px; background: var(--map-cph-fill); border: 4px solid var(--map-cph-ring); }
+.map-dot:focus-visible { outline: var(--focus-ring); outline-offset: 0; }
+.leaflet-popup-content:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }

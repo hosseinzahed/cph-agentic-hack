@@ -1,11 +1,13 @@
 // CPH Ops Assistant chat drawer. Guide: docs/assistant-and-finale.md
 //
-// The drawer stays disabled while POST /api/assistant/chat returns 501. On page load it
-// sends an EMPTY message as a probe: the stub answers 501, a real implementation should
-// answer 400/422 for an empty message (or 200), and any non-501 answer switches the chat on.
+// The drawer stays disabled until POST /api/assistant/chat is implemented. On page load it
+// sends an EMPTY message as a probe: the stub answers 501, a real implementation answers
+// 400/422 for an empty message (or 2xx). Only those answers switch the chat on; 501, 503
+// (SDK client not running), 401, 404, 500 and network errors leave it off.
 import { api } from "../app.js";
 
 let sessionId = null;
+let pending = false;
 
 export function initAssistant() {
   const drawer = document.getElementById("chat-drawer");
@@ -13,24 +15,29 @@ export function initAssistant() {
   const close = document.getElementById("chat-close");
   const form = document.getElementById("chat-form");
   const input = document.getElementById("chat-input");
+  const send = document.getElementById("chat-send");
 
-  const setOpen = (open) => {
-    drawer.hidden = !open;
-    toggle.setAttribute("aria-expanded", String(open));
-    if (!open) toggle.focus();
-    else if (input.disabled) close.focus();
-    else input.focus();
-  };
-  toggle.addEventListener("click", () => setOpen(drawer.hidden));
-  close.addEventListener("click", () => setOpen(false));
-  drawer.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setOpen(false);
+  // Native modal dialog: the browser traps focus, makes the page inert and closes on Escape.
+  toggle.addEventListener("click", () => {
+    drawer.showModal();
+    toggle.setAttribute("aria-expanded", "true");
+    (input.disabled ? close : input).focus();
+  });
+  close.addEventListener("click", () => drawer.close());
+  drawer.addEventListener("click", (event) => {
+    if (event.target === drawer) drawer.close(); // a click on the backdrop
+  });
+  drawer.addEventListener("close", () => {
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.focus();
   });
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const message = input.value.trim();
-    if (!message) return;
+    if (!message || pending) return;
+    pending = true;
+    send.disabled = true;
     input.value = "";
     addMessage("user", message);
     try {
@@ -39,6 +46,9 @@ export function initAssistant() {
       addMessage("assistant", reply.reply);
     } catch (error) {
       addMessage("assistant", `Sorry, something went wrong: ${error.message}`);
+    } finally {
+      pending = false;
+      send.disabled = false;
     }
   });
 
@@ -50,7 +60,7 @@ async function probe() {
     await api("/api/assistant/chat", { method: "POST", body: { message: "" } });
     enable();
   } catch (error) {
-    if (error.status && error.status !== 501) enable();
+    if (error.status === 400 || error.status === 422) enable();
   }
 }
 

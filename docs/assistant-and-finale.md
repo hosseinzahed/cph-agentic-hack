@@ -52,7 +52,8 @@ File: `src/backend/app/assistant/copilot_agent.py`, then `src/backend/app/main.p
 
 💡 The chat drawer probes the endpoint with an **empty message** on page load: the stub
 answers 501, so the drawer stays off. Once you return **400** for an empty message, the drawer
-switches on automatically. Never auto-approve shell or file-write tools for a chat assistant.
+switches on automatically. Only 2xx, 400 or 422 switch it on; 503 (client not running) and
+other errors keep it off. Never auto-approve shell or file-write tools for a chat assistant.
 
 ✅ Reload the page: the drawer says "Assistant connected". Asking "What can you do?" returns a reply.
 

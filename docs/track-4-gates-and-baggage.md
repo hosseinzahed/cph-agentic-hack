@@ -134,7 +134,8 @@ Times follow [workshop-flow.md](workshop-flow.md). Suggested split: one person o
 > described in [getting-started.md](getting-started.md). Your choice decides where your issues,
 > branch and pull request go in steps 2 and 9.
 
-1. `python src/scripts/check_env.py`, then `uvicorn backend.app.main:app --app-dir src --reload`.
+1. With the venv activated ([getting-started](getting-started.md#both-paths-set-up-and-run)):
+   `python src/scripts/check_env.py`, then `uvicorn backend.app.main:app --app-dir src --reload`.
 2. Open the **Gates & baggage** tab and http://localhost:8000/docs: `GET /api/gates/conflicts` → **501**.
 3. Note the `stand_conflicts` number printed by the seed script.
 

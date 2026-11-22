@@ -135,9 +135,11 @@ From the repository root:
 | Windows (PowerShell) | macOS / Linux |
 |---|---|
 | `.\src\scripts\setup.ps1` | `./src/scripts/setup.sh` |
+| `.\.venv\Scripts\Activate.ps1` | `source .venv/bin/activate` |
 | `python src\scripts\check_env.py` | `python src/scripts/check_env.py` |
 
-Then run `uvicorn backend.app.main:app --app-dir src --reload` and open http://localhost:8000.
+With the venv still active, run `uvicorn backend.app.main:app --app-dir src --reload` and open http://localhost:8000.
+Activate the venv again in every new terminal.
 
 🖥️ **GitHub Copilot app:** connect the folder with **+ → Open local folder** (after you fork and clone)
 or **+ → Add GitHub repository** (your fork, or the event repo). Run the setup in that folder, and

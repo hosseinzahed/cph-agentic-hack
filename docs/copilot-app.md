@@ -22,7 +22,8 @@ Teams can mix: some people in VS Code, some in the app, all on the same branch.
    | 📥 Clone | **Add GitHub repository** → `hosseinzahed/cph-agentic-hack`, or **Open local folder** on a clone you already have. |
 
 4. Run the setup **once** in the folder you connected. Ask in a session, or run it in a terminal:
-   `.\src\scripts\setup.ps1` (Windows) or `./src/scripts/setup.sh` (macOS/Linux).
+   `.\src\scripts\setup.ps1` (Windows) or `./src/scripts/setup.sh` (macOS/Linux). Then activate the venv: `.\.venv\Scripts\Activate.ps1` or
+   `source .venv/bin/activate`.
 
 ## 2. Start a session: pick the workspace
 
@@ -42,7 +43,7 @@ Session modes map to the workshop: **Plan** for planning, **Interactive** while 
 
 ## 3. Run and preview the app
 
-💬 "Start the app with `uvicorn backend.app.main:app --app-dir src --reload` in the background and open http://localhost:8000 in a browser canvas."
+💬 "Activate `.venv`, then start the app with `uvicorn backend.app.main:app --app-dir src --reload` in the background and open http://localhost:8000 in a browser canvas."
 
 The Browser canvas sits next to the chat, so you can ask Copilot to check the page for you
 ("Take a screenshot of the Flight plans tab and check the console for errors"). A Terminal canvas

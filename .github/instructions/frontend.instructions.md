@@ -20,6 +20,8 @@ description: "Vanilla JS, Leaflet, Chart.js and CPH-inspired theme rules for the
   - `addLayer(name, layer)` / `clearLayer(name)`: named map layers. Prefix names with your track,
     e.g. `"flights:routes"`, so tracks don't overwrite each other.
   - `renderPlaceholder(el, track, hint)`, `getMap()`, `cssVar(name)`, `chartPalette()`, `escapeHtml(text)`.
+  - `dotMarker([lat, lon], label, popupHtml, { className, colour })`: a keyboard-accessible map dot
+    (Tab, then Enter/Space opens the popup). Use it instead of `L.circleMarker` for anything with a popup.
 - Import helpers with `import { api, addLayer } from "../app.js";`. Exported helpers are function
   declarations, so they are safe to import from track modules.
 
